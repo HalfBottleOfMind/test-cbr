@@ -1,0 +1,62 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'CBR exchange rates'
+
+paths:
+  /:
+    get:
+      summary: Get current exchange rates
+      responses:
+        '200':
+          description: Get current exchange rates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExchangeRate'
+  /filter:
+    get:
+      summary: Get exchange rates
+      parameters:
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+          example: '02.03.2024'
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+          example: '02.03.2024'
+      responses:
+        '200':
+          description: Get exchange rates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExchangeRate'
+components:
+  schemas:
+    ExchangeRate:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        numCode:
+          type: string
+        charCode:
+          type: string
+        nominal:
+          type: integer
+        value:
+          type: number
+        vUnitRate:
+          type: number
